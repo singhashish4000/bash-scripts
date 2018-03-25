@@ -4,7 +4,7 @@ finished=false
 while  [ "$finished" = false ] ; do
   if [ $finished = false ]
    then
-    printf 'Select \n [1] to START xampp \n [2] to STOP xampp \n [3] to RESTART xampp \n [4] to configure xampp security \n'
+    printf 'Select \n [1] to START xampp \n [2] to STOP xampp \n [3] to RESTART xampp \n [4] to configure xampp security \n [5] to activate eAccelerator \n => '
     read input
     case $input in
         "1")
@@ -26,6 +26,31 @@ while  [ "$finished" = false ] ; do
         sudo /opt/lampp/lampp security
         finished=true
         ;;        
+        "5")
+        files=( 'extension="eaccelerator.so"' 
+                 'eaccelerator.shm_size="16"'
+                 'eaccelerator.cache_dir="/opt/lampp/temp/eaccelerator"'
+                 'eaccelerator.enable="1"'
+                 'eaccelerator.optimizer="1"'
+                 'eaccelerator.check_mtime="1"'
+                 'eaccelerator.debug="0"'
+                 'eaccelerator.filter=""'
+                 'eaccelerator.shm_max="0"'
+                 'eaccelerator.shm_ttl="0"'
+                 'eaccelerator.shm_prune_period="0"'
+                 'eaccelerator.shm_only="0"'
+                 'eaccelerator.compress="1"'
+                 'eaccelerator.compress_level="9"'
+              )
+        sc=';'      
+        for file in ${files[@]}
+        do
+            sudo perl -pi -e 's/$sc$file/$file/g' /opt/lampp/etc/php.ini
+            echo 'XAMPP: Uncomment '$file' in /opt/lampp/etc/php.ini'
+        done
+        echo 'Done'
+        finished=true
+        ;;                
         *)
         echo 'Please select appropriate option'
         finished=false
