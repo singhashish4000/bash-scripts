@@ -1,18 +1,35 @@
 #!/bin/bash
-printf 'Select \n [1] to START xampp \n [2] to STOP xampp \n [3] to RESTART xampp \n'
-read input
-case $input in
-    "1")
-       sudo /opt/lampp/lampp start
-       ;;
-    "2")
-       sudo /opt/lampp/lampp stop
-       ;;
-    "3")
-       sudo /opt/lampp/lampp restart
-       ;;
-    *)
-       echo 'Please select appropriate option'
-       ;;
-esac       
-          
+                 
+finished=false
+while  [ "$finished" = false ] ; do
+  if [ $finished = false ]
+   then
+    printf 'Select \n [1] to START xampp \n [2] to STOP xampp \n [3] to RESTART xampp \n [4] to configure xampp security \n'
+    read input
+    case $input in
+        "1")
+        sudo /opt/lampp/lampp start
+        echo 'XAMPP STARTED'
+        finished=true
+        ;;
+        "2")
+        sudo /opt/lampp/lampp stop
+        echo 'XAMPP STOPED'
+        finished=true
+        ;;
+        "3")
+        sudo /opt/lampp/lampp restart
+        echo 'XAMPP RESTARTED'
+        finished=true
+        ;;
+        "4")
+        sudo /opt/lampp/lampp security
+        finished=true
+        ;;        
+        *)
+        echo 'Please select appropriate option'
+        finished=false
+        ;;
+    esac
+   fi     
+done          
