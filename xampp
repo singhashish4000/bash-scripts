@@ -1,0 +1,18 @@
+#!/bin/bash
+printf 'Select \n [1] to START xampp \n [2] to STOP xampp \n [3] to RESTART xampp \n'
+read input
+case $input in
+    "1")
+       sudo /opt/lampp/lampp start
+       ;;
+    "2")
+       sudo /opt/lampp/lampp stop
+       ;;
+    "3")
+       sudo /opt/lampp/lampp restart
+       ;;
+    *)
+       echo 'Please select appropriate option'
+       ;;
+esac       
+          
